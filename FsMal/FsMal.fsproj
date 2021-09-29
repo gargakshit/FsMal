@@ -7,11 +7,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<Compile Include="Repl.fs" />
 		<Compile Include="Program.fs" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <PackageReference Update="FSharp.Core" Version="6.0.0" />
+	  <PackageReference Include="ReadLine" Version="2.0.1" />
 	</ItemGroup>
 
 </Project>

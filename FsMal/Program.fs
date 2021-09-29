@@ -1,7 +1,7 @@
-let from whom = $"from %s{whom}"
+namespace FsMal
 
-[<EntryPoint>]
-let main _argv =
-    let message = from "F#"
-    printfn $"Hello world %s{message}"
-    0
+module Program =
+    [<EntryPoint>]
+    let main _argv =
+        Repl.repl ()
+        0
