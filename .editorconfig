@@ -1,0 +1,11 @@
+﻿[*]
+root = true
+end_of_line = crlf
+indent_style = tab
+indent_size = tab
+insert_final_newline = true
+max_line_length = 80
+
+[*.fs]
+indent_style = space
+indent_size = 4

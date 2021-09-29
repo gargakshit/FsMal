@@ -1,0 +1,7 @@
+﻿# Well why commit editor configuration when we have
+# .editorconfig
+/.idea
+
+# Binaries and objects
+/FsMal/bin
+/FsMal/obj
