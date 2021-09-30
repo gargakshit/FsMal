@@ -3,23 +3,51 @@
 open System
 
 module Repl =
-    let read str = str
+    open NerdyMishka
+    open Printer
+    open Reader
+    open Types
+
+    let read = readString
 
     let eval env ast = ast
 
-    let print exp = exp
+    let rep str =
+        match read str with
+        | Ok form -> Ok(eval () form)
+        | Error e -> Error e
 
-    let rep str = str |> read |> eval () |> print
+    let uncoloredStdio prompt =
+        (fun () -> ReadLine.Read prompt),
+        (function
+        | Ok form -> printfn $"%s{printString true form}"
+        | Error e -> printfn $"Error: %s{e}")
 
-    let rec repl () =
-        // Get the input from stdin
-        let input = ReadLine.Read "user> "
+    let coloredStdio prompt =
+        let coloredPrompt = Chalk.Cyan().Bold().Draw(prompt)
+        let success form = Chalk.BrightGreen().Draw(form)
+        let error e = Chalk.BrightRed().Draw(e)
+        let nil = Chalk.White().Dim().Draw("nil")
 
-        // Evaluate
-        input |> rep |> printfn "%s"
+        (fun () -> ReadLine.Read coloredPrompt),
+        (function
+        | Ok form ->
+            match form with
+            | Nil -> printfn $"%s{nil}"
+            |_ -> printfn $"%s{success <| printString true form}"
+        | Error e -> printfn $"%s{error e}")
 
-        // Add the expression to the readline history
+    let rec repl enableColors =
+        let readline, writeline =
+            (if enableColors then
+                 coloredStdio
+             else
+                 uncoloredStdio)
+                "user> "
+
+        let input = readline ()
+        input |> rep |> writeline
         ReadLine.AddHistory input
 
         // Loop
-        repl ()
+        repl enableColors

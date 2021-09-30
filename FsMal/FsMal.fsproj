@@ -7,16 +7,19 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Compile Include="Types.fs"/>
-		<Compile Include="Repl.fs"/>
-		<Compile Include="Reader.fs"/>
-		<Compile Include="Program.fs"/>
+		<Compile Include="Types.fs" />
+		<Compile Include="Printer.fs" />
+		<Compile Include="Reader.fs" />
+		<Compile Include="Repl.fs" />
+		<Compile Include="Program.fs" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Update="FSharp.Core" Version="6.0.0"/>
-		<PackageReference Include="FParsec" Version="1.1.1"/>
-		<PackageReference Include="ReadLine" Version="2.0.1"/>
+		<PackageReference Update="FSharp.Core" Version="6.0.0" />
+		<PackageReference Include="FParsec" Version="1.1.1" />
+		<PackageReference Include="NerdyMishka.Chalk" Version="0.1.0" />
+		<PackageReference Include="Pastel" Version="2.1.0" />
+		<PackageReference Include="ReadLine" Version="2.0.1" />
 	</ItemGroup>
 
 </Project>
