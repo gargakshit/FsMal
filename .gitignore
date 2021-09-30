@@ -3,5 +3,5 @@
 /.idea
 
 # Binaries and objects
-/FsMal/bin
-/FsMal/obj
+/*/bin
+/*/obj

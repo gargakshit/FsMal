@@ -9,11 +9,17 @@ module Repl =
 
     let print exp = exp
 
-    let rep str = str |> read |> eval "" |> print
-    
+    let rep str = str |> read |> eval () |> print
+
     let rec repl () =
-        ReadLine.Read "user> "
-        |> rep
-        |> printfn "%s"
-        
+        // Get the input from stdin
+        let input = ReadLine.Read "user> "
+
+        // Evaluate
+        input |> rep |> printfn "%s"
+
+        // Add the expression to the readline history
+        ReadLine.AddHistory input
+
+        // Loop
         repl ()
