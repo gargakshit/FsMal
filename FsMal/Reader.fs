@@ -3,6 +3,7 @@
 module Reader =
     open FParsec
     open Types
+    open Utils
 
     let private quote = Symbol "quote"
     let private quasiquote = Symbol "quasiquote"
@@ -11,12 +12,8 @@ module Reader =
     let private deref = Symbol "deref"
 
     let private parseComment =
-        parse {
-            do! skipChar ';'
-            do! restOfLine false |>> ignore
-
-            return Skip
-        }
+        skipChar ';' >>. restOfLine false
+        |>> (fun _ -> Skip)
 
     let private parseForm, private parseFormRef: Parser<Form, unit> * Parser<Form, unit> ref =
         createParserForwardedToRef ()
@@ -29,23 +26,17 @@ module Reader =
         (stringReturn "true" (Bool true))
         <|> (stringReturn "false" (Bool false))
 
-    let private allowedChars = noneOf "\n\r \"(),;[\\]{}"
+    let private allowedChars =
+        noneOf "\n\r \"(),;[\\]{}"
+        <?> "alphanumeric characters"
 
     let private parseSymbol = many1Chars allowedChars |>> Symbol
 
     let private parseKeyword =
-        parse {
-            do! skipChar ':'
-            let! keyword = many1Chars allowedChars
+        skipChar ':' >>. many1Chars allowedChars
+        |>> Keyword
 
-            return Keyword keyword
-        }
-
-    let private parsePrefixed prefix =
-        parse {
-            do! skipString prefix
-            return! parseForm
-        }
+    let private parsePrefixed prefix = skipString prefix >>. parseForm
 
     let private parseSpecial prefix symbol =
         parsePrefixed prefix
@@ -70,35 +61,32 @@ module Reader =
                      | 't' -> "\t"
                      | c -> string c)
 
-        between
+        betweenL
             (pstring "\"")
             (pstring "\"")
             (stringsSepBy normalCharSnippet escapedChar)
+            "string literal in double quotes"
         |>> String
 
+    let private sep =
+        skipMany (
+            (anyOf ",\n " |>> ignore)
+            <|> spaces1
+            <|> (parseComment |>> ignore)
+        )
+        <?> "separator"
+
+    let private filterSkip =
+        function
+        | Skip -> false
+        | _ -> true
+
     let private parseBetween openChar closeChar =
-        parse {
-            let sep =
-                skipMany (
-                    (anyOf ",\n " |>> ignore)
-                    <|> spaces1
-                    <|> (parseComment |>> ignore)
-                )
-
-            do! skipChar openChar
-            do! sep
-
-            let! items = many (parseForm .>> sep)
-
-            do! skipChar closeChar
-
-            return
-                List.filter
-                    (function
-                    | Skip -> false
-                    | _ -> true)
-                    items
-        }
+        skipChar openChar
+        >>. sep
+        >>. many (parseForm .>> sep)
+        .>> skipChar closeChar
+        |>> List.filter filterSkip
 
     let private parseList = parseBetween '(' ')' |>> List
 
@@ -107,22 +95,27 @@ module Reader =
         |>> (fun l -> Vector(Array.ofList l))
 
     parseFormRef
-    := choice [ parseComment
-                parseNil
-                parseFloat
-                parseBool
-                parseString
-                parseList
-                parseVector
-                parseKeyword
-                parseQuote
-                parseQuasiQuote
-                parseSpliceUnquote
-                parseUnquote
-                parseDeref
-                parseSymbol ]
+    := choiceL
+        [ parseComment
+          parseNil
+          parseFloat
+          parseBool
+          parseString
+          parseList
+          parseVector
+          parseKeyword
+          parseQuote
+          parseQuasiQuote
+          parseSpliceUnquote
+          parseUnquote
+          parseDeref
+          parseSymbol ]
+        "FsMal form"
 
-    let readString str =
-        match run !parseFormRef str with
-        | Success (result, _, _) -> Result.Ok result
-        | Failure (err, _, _) -> Result.Error err
+    let readString (str: string) =
+        match str.Trim() with
+        | "" -> Result.Ok Skip
+        | str ->
+            match run !parseFormRef str with
+            | Success (result, _, _) -> Result.Ok result
+            | Failure (err, _, _) -> Result.Error err

@@ -9,6 +9,7 @@
 	<ItemGroup>
 		<Compile Include="Types.fs" />
 		<Compile Include="Printer.fs" />
+		<Compile Include="Utils.fs" />
 		<Compile Include="Reader.fs" />
 		<Compile Include="Repl.fs" />
 		<Compile Include="Program.fs" />

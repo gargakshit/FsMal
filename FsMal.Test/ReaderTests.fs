@@ -7,6 +7,14 @@ open Xunit.Abstractions
 
 type ReaderTests(output: ITestOutputHelper) =
     [<Fact>]
+    let ``Reader returns Types.Skip on empty string`` () =
+        let input = ""
+        let expected = Ok Skip
+        let actual = readString input
+
+        Assert.Equal(expected, actual)
+    
+    [<Fact>]
     let ``Reader returns Types.Skip on comments`` () =
         let input = "; This is a comment"
         let expected = Ok Skip

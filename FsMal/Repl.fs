@@ -34,7 +34,8 @@ module Repl =
         | Ok form ->
             match form with
             | Nil -> printfn $"%s{nil}"
-            |_ -> printfn $"%s{success <| printString true form}"
+            | Skip -> ()
+            | _ -> printfn $"%s{success <| printString true form}"
         | Error e -> printfn $"%s{error e}")
 
     let rec repl enableColors =
