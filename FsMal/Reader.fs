@@ -33,7 +33,8 @@ module Reader =
     let private parseSymbol = many1Chars allowedChars |>> Symbol
 
     let private parseKeyword =
-        skipChar ':' >>. many1Chars allowedChars
+        skipChar ':' <?> "keyword"
+        >>. many1Chars allowedChars
         |>> Keyword
 
     let private parsePrefixed prefix = skipString prefix >>. parseForm
@@ -94,6 +95,29 @@ module Reader =
         parseBetween '[' ']'
         |>> (fun l -> Vector(Array.ofList l))
 
+    let private parseHashMap =
+        skipChar '{'
+        >>. sep
+        >>. many (
+            parseKeyword <|> parseString .>> sep
+            .>>. parseForm
+            .>> sep
+        )
+        .>> skipChar '}'
+        |>> List.fold
+                (fun (keywordMap, stringMap) ->
+                    function
+                    | String str, form ->
+                        (keywordMap, Map.add str form stringMap)
+                    | Keyword str, form ->
+                        (Map.add str form keywordMap, stringMap)
+                    // Return original maps in case if the key is not a string
+                    // or a keyword. Due to how the parser works, this situation
+                    // is not possible
+                    | _ -> (keywordMap, stringMap))
+                (Map.empty, Map.empty)
+        |>> HashMap
+
     parseFormRef
     := choiceL
         [ parseComment
@@ -104,6 +128,7 @@ module Reader =
           parseList
           parseVector
           parseKeyword
+          parseHashMap
           parseQuote
           parseQuasiQuote
           parseSpliceUnquote

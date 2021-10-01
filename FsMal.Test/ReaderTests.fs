@@ -13,7 +13,7 @@ type ReaderTests(output: ITestOutputHelper) =
         let actual = readString input
 
         Assert.Equal(expected, actual)
-    
+
     [<Fact>]
     let ``Reader returns Types.Skip on comments`` () =
         let input = "; This is a comment"
@@ -86,10 +86,11 @@ type ReaderTests(output: ITestOutputHelper) =
         3 )"
 
         let expected =
-            Ok
-            <| List [ Number 1.0
-                      Number 2.0
-                      Number 3.0 ]
+            Ok(
+                List [ Number 1.0
+                       Number 2.0
+                       Number 3.0 ]
+            )
 
         let actual = readString input
 
@@ -115,10 +116,11 @@ type ReaderTests(output: ITestOutputHelper) =
         3  ]"
 
         let expected =
-            Ok
-            <| Vector [| Number 1.0
-                         Number 2.0
-                         Number 3.0 |]
+            Ok(
+                Vector [| Number 1.0
+                          Number 2.0
+                          Number 3.0 |]
+            )
 
         let actual = readString input
 
@@ -224,3 +226,35 @@ type ReaderTests(output: ITestOutputHelper) =
         let actual = readString input
 
         Assert.Equal(expected, actual)
+
+    [<Fact>]
+    let ``Reader parses hashmaps`` () =
+        let input =
+            "{ :hello   ,,567
+        \"abc\" 123  }"
+
+        let expected =
+            Ok(
+                HashMap(
+                    (Map.ofList [ "hello", Number 567.0 ]),
+                    (Map.ofList [ "abc", Number 123.0 ])
+                )
+            )
+
+        let actual = readString input
+
+        Assert.Equal(expected, actual)
+
+        let input' = "{ 1 2 }"
+        let actual' = readString input'
+
+        match actual' with
+        | Ok _ -> Assert.True(false, $"Expected error, got {actual'}")
+        | Error _ -> Assert.True(true)
+
+        let input'' = "{ :a 1"
+        let actual'' = readString input''
+
+        match actual'' with
+        | Ok _ -> Assert.True(false, $"Expected error, got {actual''}")
+        | Error _ -> Assert.True(true)

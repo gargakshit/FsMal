@@ -20,7 +20,7 @@ module Repl =
     let uncoloredStdio prompt =
         (fun () -> ReadLine.Read prompt),
         (function
-        | Ok form -> printfn $"%s{printString true form}"
+        | Ok form -> printfn $"%s{printToString true form}"
         | Error e -> printfn $"Error: %s{e}")
 
     let coloredStdio prompt =
@@ -35,7 +35,7 @@ module Repl =
             match form with
             | Nil -> printfn $"%s{nil}"
             | Skip -> ()
-            | _ -> printfn $"%s{success <| printString true form}"
+            | _ -> printfn $"%s{success <| printToString true form}"
         | Error e -> printfn $"%s{error e}")
 
     let rec repl enableColors =

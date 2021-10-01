@@ -10,7 +10,7 @@ type PrinterTests(output: ITestOutputHelper) =
     let ``Printer prints nil`` () =
         let input = Nil
         let expected = "nil"
-        let actual = printString true input
+        let actual = printToString true input
 
         Assert.Equal(expected, actual)
 
@@ -18,13 +18,13 @@ type PrinterTests(output: ITestOutputHelper) =
     let ``Printer prints number`` () =
         let input = Number 1.0
         let expected = "1"
-        let actual = printString true input
+        let actual = printToString true input
 
         Assert.Equal(expected, actual)
 
         let input' = Number 1.432832432
         let expected' = "1.432832432"
-        let actual' = printString true input'
+        let actual' = printToString true input'
 
         Assert.Equal(expected', actual')
 
@@ -32,7 +32,7 @@ type PrinterTests(output: ITestOutputHelper) =
     let ``Printer prints string`` () =
         let input = String "\"Abc"
         let expected = "\"Abc"
-        let actual = printString false input
+        let actual = printToString false input
 
         Assert.Equal(expected, actual)
 
@@ -40,7 +40,7 @@ type PrinterTests(output: ITestOutputHelper) =
     let ``Printer prints string in pretty mode`` () =
         let input = String "\"Abc\r\n\t"
         let expected = "\"\\\"Abc\\r\\n\\t\""
-        let actual = printString true input
+        let actual = printToString true input
 
         Assert.Equal(expected, actual)
 
@@ -48,13 +48,13 @@ type PrinterTests(output: ITestOutputHelper) =
     let ``Printer prints bool`` () =
         let input = Bool true
         let expected = "true"
-        let actual = printString true input
+        let actual = printToString true input
 
         Assert.Equal(expected, actual)
 
         let input' = Bool false
         let expected' = "false"
-        let actual' = printString true input'
+        let actual' = printToString true input'
 
         Assert.Equal(expected', actual')
 
@@ -62,7 +62,7 @@ type PrinterTests(output: ITestOutputHelper) =
     let ``Printer prints keyword`` () =
         let input = Keyword "key"
         let expected = ":key"
-        let actual = printString true input
+        let actual = printToString true input
 
         Assert.Equal(expected, actual)
 
@@ -70,7 +70,7 @@ type PrinterTests(output: ITestOutputHelper) =
     let ``Printer prints symbol`` () =
         let input = Symbol "sym"
         let expected = "sym"
-        let actual = printString true input
+        let actual = printToString true input
 
         Assert.Equal(expected, actual)
 
@@ -78,7 +78,7 @@ type PrinterTests(output: ITestOutputHelper) =
     let ``Printer prints atom`` () =
         let input = Atom(ref <| Number 1.0)
         let expected = "(atom 1)"
-        let actual = printString true input
+        let actual = printToString true input
 
         Assert.Equal(expected, actual)
 
@@ -86,7 +86,7 @@ type PrinterTests(output: ITestOutputHelper) =
     let ``Printer skips skip`` () =
         let input = Skip
         let expected = ""
-        let actual = printString true input
+        let actual = printToString true input
 
         Assert.Equal(expected, actual)
 
@@ -97,7 +97,7 @@ type PrinterTests(output: ITestOutputHelper) =
                    List [ Number 1.0;Bool true ] ]
 
         let expected = "(Hello (1 true))"
-        let actual = printString false input
+        let actual = printToString false input
 
         Assert.Equal(expected, actual)
 
@@ -106,7 +106,7 @@ type PrinterTests(output: ITestOutputHelper) =
                    List [ Number 1.0;Bool true ] ]
 
         let expected' = "(\"Hello\" (1 true))"
-        let actual' = printString true input'
+        let actual' = printToString true input'
 
         Assert.Equal(expected', actual')
 
@@ -117,7 +117,7 @@ type PrinterTests(output: ITestOutputHelper) =
                       Vector [| Number 1.0;Bool true |] |]
 
         let expected = "[Hello [1 true]]"
-        let actual = printString false input
+        let actual = printToString false input
 
         Assert.Equal(expected, actual)
 
@@ -126,7 +126,7 @@ type PrinterTests(output: ITestOutputHelper) =
                       Vector [| Number 1.0;Bool true |] |]
 
         let expected' = "[\"Hello\" [1 true]]"
-        let actual' = printString true input'
+        let actual' = printToString true input'
 
         Assert.Equal(expected', actual')
 
@@ -138,7 +138,7 @@ type PrinterTests(output: ITestOutputHelper) =
                              Vector [| Nil;Bool false |] ] |]
 
         let expected = "[Hello (1 [nil false])]"
-        let actual = printString false input
+        let actual = printToString false input
 
         Assert.Equal(expected, actual)
 
@@ -148,6 +148,27 @@ type PrinterTests(output: ITestOutputHelper) =
                              Vector [| Nil;Bool false |] ] |]
 
         let expected' = "[\"Hello\" (1 [nil false])]"
-        let actual' = printString true input'
+        let actual' = printToString true input'
+
+        Assert.Equal(expected', actual')
+
+    [<Fact>]
+    let ``Printer prints hashmaps`` () =
+        let input =
+            HashMap(
+                (Map.ofList [ "hello", Number 567.0 ]),
+                (Map.ofList [ "abc", Number 123.0 ])
+            )
+
+        let expected = "{:hello 567 \"abc\" 123}"
+        let actual = printToString true input
+
+        Assert.Equal(expected, actual)
+
+        let input' =
+            HashMap((Map.ofList [ "hello", Number 567.0 ]), (Map.ofList []))
+
+        let expected' = "{:hello 567}"
+        let actual' = printToString true input'
 
         Assert.Equal(expected', actual')

@@ -12,6 +12,9 @@ module Types =
         | Symbol of sym: string
         | Keyword of keyword: string
         | Atom of ref: Form ref
+        | HashMap of
+            keywordMap: Map<string, Form> *
+            stringMap: Map<string, Form>
         | Skip
 // Skip is a special type which is used to mark the parts of code which is not
 // evaluated. It can not be used from the LISP userspace
