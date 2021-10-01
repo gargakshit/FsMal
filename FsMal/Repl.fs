@@ -3,7 +3,7 @@
 open System
 
 module Repl =
-    open NerdyMishka
+    open Colors
     open Printer
     open Reader
     open Types
@@ -24,10 +24,10 @@ module Repl =
         | Error e -> printfn $"Error: %s{e}")
 
     let coloredStdio prompt =
-        let coloredPrompt = Chalk.Cyan().Bold().Draw(prompt)
-        let success form = Chalk.BrightGreen().Draw(form)
-        let error e = Chalk.BrightRed().Draw(e)
-        let nil = Chalk.White().Dim().Draw("nil")
+        let coloredPrompt = (cyan >> bold) prompt
+        let success = green
+        let error = red
+        let nil = (white >> dim) "nil"
 
         (fun () -> ReadLine.Read coloredPrompt),
         (function
