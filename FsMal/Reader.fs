@@ -12,8 +12,7 @@ module Reader =
     let private deref = Symbol "deref"
 
     let private parseComment =
-        skipChar ';' >>. restOfLine false
-        >>% Skip
+        skipChar ';' >>. restOfLine false >>% Skip
 
     let private parseForm, private parseFormRef: Parser<Form, unit> * Parser<Form, unit> ref =
         createParserForwardedToRef ()
@@ -92,8 +91,7 @@ module Reader =
     let private parseList = parseBetween '(' ')' |>> List
 
     let private parseVector =
-        parseBetween '[' ']'
-        |>> (fun l -> Vector(Array.ofList l))
+        parseBetween '[' ']' |>> (Array.ofList >> Vector)
 
     let private parseHashMap =
         skipChar '{'

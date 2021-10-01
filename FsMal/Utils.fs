@@ -61,3 +61,28 @@ module Utils =
                         expectedLabel
 
                 Reply(reply1.Status, error)
+
+    open System.Runtime.CompilerServices
+
+    [<Extension>]
+    type GenericDictExtensions() =
+        [<Extension>]
+        static member GetOption<'a, 'b>
+            (
+                self: System.Collections.Generic.Dictionary<'a, 'b>,
+                key: 'a
+            ) =
+            match self.TryGetValue(key) with
+            | true, v -> Some v
+            | false, _ -> None
+
+    type OptionBuilder() =
+        member this.Bind(x, f) =
+            match x with
+            | None -> None
+            | Some x' -> f x'
+
+        member this.Return(x) = Some x
+        member this.ReturnFrom(x) = x
+
+    let option = OptionBuilder()
