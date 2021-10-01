@@ -3,36 +3,16 @@
   &lt;Assembly Path="C:\Users\akshi\.nuget\packages\readline\2.0.1\lib\netstandard2.0\ReadLine.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
 	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">C:\Users\akshi\AppData\Local\JetBrains\Rider2021.2\resharper-host\temp\Rider\vAny\CoverageData\_FsMal.-852219228\Snapshot\snapshot.utdcvr</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d67c1e7d_002D2c79_002D4fc6_002D8ed6_002Dc8b9f5574300/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="ReaderTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::85830682-B7FA-4EAB-9532-3DD759D53ED2::net5.0::FsMal.Test.ReaderTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::85830682-B7FA-4EAB-9532-3DD759D53ED2::net5.0::FsMal.Test.PrinterTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
 	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=18cebf7a_002Daa6b_002D4678_002Dab0f_002Dc6efc30eb234/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ReaderTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::85830682-B7FA-4EAB-9532-3DD759D53ED2::net5.0::FsMal.Test.ReaderTests&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::85830682-B7FA-4EAB-9532-3DD759D53ED2::net5.0::FsMal.Test.PrinterTests.Printer prints nil&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::85830682-B7FA-4EAB-9532-3DD759D53ED2::net5.0::FsMal.Test.PrinterTests.Printer prints number&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::85830682-B7FA-4EAB-9532-3DD759D53ED2::net5.0::FsMal.Test.PrinterTests.Printer prints string&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::85830682-B7FA-4EAB-9532-3DD759D53ED2::net5.0::FsMal.Test.PrinterTests.Printer prints string in pretty mode&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::85830682-B7FA-4EAB-9532-3DD759D53ED2::net5.0::FsMal.Test.PrinterTests.Printer prints bool&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::85830682-B7FA-4EAB-9532-3DD759D53ED2::net5.0::FsMal.Test.PrinterTests.Printer prints keyword&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::85830682-B7FA-4EAB-9532-3DD759D53ED2::net5.0::FsMal.Test.PrinterTests.Printer prints symbol&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::85830682-B7FA-4EAB-9532-3DD759D53ED2::net5.0::FsMal.Test.PrinterTests.Printer prints atom&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::85830682-B7FA-4EAB-9532-3DD759D53ED2::net5.0::FsMal.Test.PrinterTests.Printer skips skip&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::85830682-B7FA-4EAB-9532-3DD759D53ED2::net5.0::FsMal.Test.PrinterTests.Printer prints list&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::85830682-B7FA-4EAB-9532-3DD759D53ED2::net5.0::FsMal.Test.PrinterTests.Printer prints vector&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::85830682-B7FA-4EAB-9532-3DD759D53ED2::net5.0::FsMal.Test.PrinterTests.Printer prints compound forms&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::85830682-B7FA-4EAB-9532-3DD759D53ED2::net5.0::FsMal.Test.PrinterTests&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=54fb5bc7_002D0da9_002D4018_002D9441_002D165e8e66f5ac/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="PrinterTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::85830682-B7FA-4EAB-9532-3DD759D53ED2::net5.0::FsMal.Test.PrinterTests&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=fbb00bf4_002D955d_002D457b_002D8c68_002D635f9ee966ef/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="PrinterTests #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::85830682-B7FA-4EAB-9532-3DD759D53ED2::net5.0::FsMal.Test.PrinterTests&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::85830682-B7FA-4EAB-9532-3DD759D53ED2::net5.0::FsMal.Test.ReaderTests&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
+	
+	
+	
 	
 	
 	

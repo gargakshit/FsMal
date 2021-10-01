@@ -6,7 +6,7 @@ module Printer =
     let rec printString pretty =
         function
         | Nil -> "nil"
-        | Number num -> $"%f{num}"
+        | Number num -> num.ToString()
         | String str when pretty -> prettyPrintStr str
         | String str -> str
         | Bool false -> "false"
