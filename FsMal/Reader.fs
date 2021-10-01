@@ -13,12 +13,12 @@ module Reader =
 
     let private parseComment =
         skipChar ';' >>. restOfLine false
-        |>> (fun _ -> Skip)
+        >>% Skip
 
     let private parseForm, private parseFormRef: Parser<Form, unit> * Parser<Form, unit> ref =
         createParserForwardedToRef ()
 
-    let private parseNil = pstring "nil" |>> (fun _ -> Nil)
+    let private parseNil = pstring "nil" >>% Nil
 
     let private parseFloat = pfloat |>> Number
 
