@@ -16,6 +16,7 @@ module Printer =
         | Skip -> ""
         | List l -> $"(%s{printList pretty l})"
         | Vector v -> $"[%s{printArray pretty v}]"
+        | BuiltInFunc _ -> "#<function>"
         | HashMap (keywordMap, stringMap) ->
             printHashMap pretty keywordMap stringMap
 

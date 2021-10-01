@@ -12,6 +12,7 @@
 		<Compile Include="PrinterTest.fs" />
 		<Compile Include="UtilsTests.fs" />
 		<Compile Include="EnvTest.fs" />
+		<Compile Include="TypesTest.fs" />
 	</ItemGroup>
 
 	<ItemGroup>

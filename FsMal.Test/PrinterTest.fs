@@ -172,3 +172,11 @@ type PrinterTests(output: ITestOutputHelper) =
         let actual' = printToString true input'
 
         Assert.Equal(expected', actual')
+
+    [<Fact>]
+    let ``Printer prints built in functions`` () =
+        let input = BuiltInFunc(0, (fun _ -> Nil))
+        let expected = "#<function>"
+        let actual = printToString true input
+
+        Assert.Equal(expected, actual)

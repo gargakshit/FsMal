@@ -18,6 +18,7 @@ type EnvTest(output: ITestOutputHelper) =
     let ``set adds data to the env`` () =
         let env = makeEmpty ()
         let _ = set env "key" <| String "value"
+        let a = env.data.GetOption "key"
 
         Assert.Equal(env.data.GetOption "key", Some <| String "value")
 

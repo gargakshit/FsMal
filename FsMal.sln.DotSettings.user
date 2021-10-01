@@ -4,16 +4,12 @@
   &lt;Assembly Path="C:\Users\akshi\.nuget\packages\readline\2.0.1\lib\netstandard2.0\ReadLine.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
 	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">C:\Users\akshi\AppData\Local\JetBrains\Rider2021.2\resharper-host\temp\Rider\vAny\CoverageData\_FsMal.-852219228\Snapshot\snapshot.utdcvr</s:String>
-	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=8c3df400_002De6c5_002D414b_002D8069_002D381fabd6838e/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="ReaderTests #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::85830682-B7FA-4EAB-9532-3DD759D53ED2::net5.0::FsMal.Test.ReaderTests&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::85830682-B7FA-4EAB-9532-3DD759D53ED2::net5.0::FsMal.Test.PrinterTests&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::85830682-B7FA-4EAB-9532-3DD759D53ED2::net5.0::FsMal.Test.UtilsTests.GetOption from GenericDictExtensions&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::85830682-B7FA-4EAB-9532-3DD759D53ED2::net5.0::FsMal.Test.UtilsTests.OptionBuilder&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::85830682-B7FA-4EAB-9532-3DD759D53ED2::net5.0::FsMal.Test.EnvTest&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=298c4331_002Dd9d7_002D482e_002D9e04_002D0a82722e13a0/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Solution /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
+	
+	
+	
 	
 	
 	
