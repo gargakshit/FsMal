@@ -4,6 +4,8 @@ open System
 
 module Repl =
     open Colors
+    open Error
+    open Eval
     open InitialEnv
     open Printer
     open Reader
@@ -11,11 +13,13 @@ module Repl =
 
     let read = readString
 
-    let eval _ ast = ast
-
     let rep env str =
         match read str with
-        | Ok form -> Ok(eval env form)
+        | Ok form ->
+            try
+                Ok(eval env form)
+            with
+            | EvalException e -> Error $"EvalException: %s{e}"
         | Error e -> Error e
 
     let uncoloredStdio prompt =

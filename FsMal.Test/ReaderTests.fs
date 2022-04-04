@@ -77,7 +77,7 @@ type ReaderTests(output: ITestOutputHelper) =
 
         match actual'' with
         | Ok _ -> Assert.True(false, $"Expected error, got {actual''}")
-        | ErrorForm _ -> Assert.True(true)
+        | Error _ -> Assert.True(true)
 
     [<Fact>]
     let ``Reader parses lists`` () =
@@ -107,7 +107,7 @@ type ReaderTests(output: ITestOutputHelper) =
 
         match actual'' with
         | Ok _ -> Assert.True(false, $"Expected error, got {actual''}")
-        | ErrorForm _ -> Assert.True(true)
+        | Error _ -> Assert.True(true)
 
     [<Fact>]
     let ``Reader parses vectors`` () =
@@ -140,7 +140,7 @@ type ReaderTests(output: ITestOutputHelper) =
 
         match actual'' with
         | Ok _ -> Assert.True(false, $"Expected error, got {actual''}")
-        | ErrorForm _ -> Assert.True(true)
+        | Error _ -> Assert.True(true)
 
     [<Fact>]
     let ``Reader parses keyword`` () =
@@ -256,11 +256,11 @@ type ReaderTests(output: ITestOutputHelper) =
 
         match actual' with
         | Ok _ -> Assert.True(false, $"Expected error, got {actual'}")
-        | ErrorForm _ -> Assert.True(true)
+        | Error _ -> Assert.True(true)
 
         let input'' = "{ :a 1"
         let actual'' = readString input''
 
         match actual'' with
         | Ok _ -> Assert.True(false, $"Expected error, got {actual''}")
-        | ErrorForm _ -> Assert.True(true)
+        | Error _ -> Assert.True(true)

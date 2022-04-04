@@ -20,7 +20,6 @@ module Types =
             stringMap: Map<string, Form>
         | BuiltInFunc of tag: int * implementation: (Form list -> Form)
         | Skip
-        | ErrorForm of err: string
         // Skip is a special type which is used to mark the parts of code which
         // is are evaluated. It can not be used from the LISP userspace
 
@@ -45,7 +44,6 @@ module Types =
                 | Atom a, Atom b -> compare a b
                 | HashMap (a, a'), HashMap (b, b') -> compare (a, a') (b, b')
                 | BuiltInFunc (a, _), BuiltInFunc (b, _) -> compare a b
-                | ErrorForm a, ErrorForm b -> compare a b
                 | _, _ -> -1
 
         override this.Equals other =
@@ -64,7 +62,6 @@ module Types =
                 | Atom a, Atom b -> a = b
                 | HashMap (a, a'), HashMap (b, b') -> a = b && a' = b'
                 | BuiltInFunc (a, _), BuiltInFunc (b, _) -> a = b
-                | ErrorForm a, ErrorForm b -> a = b
                 | _, _ -> false
             | _ -> false
 
@@ -82,7 +79,6 @@ module Types =
             | Atom a -> hash a
             | HashMap (a, a') -> hash (a, a')
             | BuiltInFunc (a, _) -> hash $"bif<%d{a}>"
-            | ErrorForm a -> hash $"error<%s{a}>"
 
     let private concatSpace = String.concat " "
 
@@ -104,4 +100,3 @@ module Types =
         | Atom a -> $"(atom $s{typeToString a.Value})"
         | HashMap _ -> "hashmap"
         | BuiltInFunc _ -> "#bif<>"
-        | ErrorForm _ -> "error"

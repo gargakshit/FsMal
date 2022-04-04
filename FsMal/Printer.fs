@@ -17,7 +17,6 @@ module Printer =
         | List l -> $"(%s{printList pretty l})"
         | Vector v -> $"[%s{printArray pretty v}]"
         | BuiltInFunc _ -> "#<function>"
-        | ErrorForm a -> $"(error %s{a})"
         | HashMap (keywordMap, stringMap) ->
             printHashMap pretty keywordMap stringMap
 
