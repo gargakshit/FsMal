@@ -40,7 +40,7 @@ module Reader =
 
     let private parseSpecial prefix symbol =
         parsePrefixed prefix
-        |>> (fun form -> List [ symbol;form ])
+        |>> (fun form -> List [ symbol; form ])
 
     let private parseQuote = parseSpecial "'" quote
     let private parseQuasiQuote = parseSpecial "`" quasiquote
@@ -116,29 +116,29 @@ module Reader =
                 (Map.empty, Map.empty)
         |>> HashMap
 
-    parseFormRef
-    := choiceL
-        [ parseComment
-          parseNil
-          parseFloat
-          parseBool
-          parseString
-          parseList
-          parseVector
-          parseKeyword
-          parseHashMap
-          parseQuote
-          parseQuasiQuote
-          parseSpliceUnquote
-          parseUnquote
-          parseDeref
-          parseSymbol ]
-        "FsMal form"
+    parseFormRef.Value <-
+        choiceL
+            [ parseComment
+              parseNil
+              parseFloat
+              parseBool
+              parseString
+              parseList
+              parseVector
+              parseKeyword
+              parseHashMap
+              parseQuote
+              parseQuasiQuote
+              parseSpliceUnquote
+              parseUnquote
+              parseDeref
+              parseSymbol ]
+            "FsMal form"
 
     let readString (str: string) =
         match str.Trim() with
         | "" -> Result.Ok Skip
         | str ->
-            match run !parseFormRef str with
+            match run parseFormRef.Value str with
             | Success (result, _, _) -> Result.Ok result
             | Failure (err, _, _) -> Result.Error err

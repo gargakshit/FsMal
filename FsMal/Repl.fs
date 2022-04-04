@@ -4,17 +4,18 @@ open System
 
 module Repl =
     open Colors
+    open InitialEnv
     open Printer
     open Reader
     open Types
 
     let read = readString
 
-    let eval env ast = ast
+    let eval _ ast = ast
 
-    let rep str =
+    let rep env str =
         match read str with
-        | Ok form -> Ok(eval () form)
+        | Ok form -> Ok(eval env form)
         | Error e -> Error e
 
     let uncoloredStdio prompt =
@@ -38,7 +39,7 @@ module Repl =
             | _ -> printfn $"%s{success <| printToString true form}"
         | Error e -> printfn $"%s{error e}")
 
-    let rec repl enableColors =
+    let repl enableColors =
         let readline, writeline =
             (if enableColors then
                  coloredStdio
@@ -46,9 +47,11 @@ module Repl =
                  uncoloredStdio)
                 "user> "
 
-        let input = readline ()
-        input |> rep |> writeline
-        ReadLine.AddHistory input
+        let env = makeEnv ()
 
-        // Loop
-        repl enableColors
+        let rec loop () =
+            let input = readline ()
+            input |> rep env |> writeline
+            loop ()
+
+        loop ()

@@ -94,7 +94,7 @@ type PrinterTests(output: ITestOutputHelper) =
     let ``Printer prints list`` () =
         let input =
             List [ String "Hello"
-                   List [ Number 1.0;Bool true ] ]
+                   List [ Number 1.0; Bool true ] ]
 
         let expected = "(Hello (1 true))"
         let actual = printToString false input
@@ -103,7 +103,7 @@ type PrinterTests(output: ITestOutputHelper) =
 
         let input' =
             List [ String "Hello"
-                   List [ Number 1.0;Bool true ] ]
+                   List [ Number 1.0; Bool true ] ]
 
         let expected' = "(\"Hello\" (1 true))"
         let actual' = printToString true input'
@@ -114,7 +114,7 @@ type PrinterTests(output: ITestOutputHelper) =
     let ``Printer prints vector`` () =
         let input =
             Vector [| String "Hello"
-                      Vector [| Number 1.0;Bool true |] |]
+                      Vector [| Number 1.0; Bool true |] |]
 
         let expected = "[Hello [1 true]]"
         let actual = printToString false input
@@ -123,7 +123,7 @@ type PrinterTests(output: ITestOutputHelper) =
 
         let input' =
             Vector [| String "Hello"
-                      Vector [| Number 1.0;Bool true |] |]
+                      Vector [| Number 1.0; Bool true |] |]
 
         let expected' = "[\"Hello\" [1 true]]"
         let actual' = printToString true input'
@@ -135,7 +135,7 @@ type PrinterTests(output: ITestOutputHelper) =
         let input =
             Vector [| String "Hello"
                       List [ Number 1.0
-                             Vector [| Nil;Bool false |] ] |]
+                             Vector [| Nil; Bool false |] ] |]
 
         let expected = "[Hello (1 [nil false])]"
         let actual = printToString false input
@@ -145,7 +145,7 @@ type PrinterTests(output: ITestOutputHelper) =
         let input' =
             Vector [| String "Hello"
                       List [ Number 1.0
-                             Vector [| Nil;Bool false |] ] |]
+                             Vector [| Nil; Bool false |] ] |]
 
         let expected' = "[\"Hello\" (1 [nil false])]"
         let actual' = printToString true input'

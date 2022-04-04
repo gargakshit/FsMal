@@ -4,7 +4,7 @@ open System
 
 module Types =
     // TODO: add support for user functions, macros
-    [<CustomEquality;CustomComparison>]
+    [<CustomEquality; CustomComparison>]
     type Form =
         | Nil
         | Number of number: float
@@ -20,8 +20,9 @@ module Types =
             stringMap: Map<string, Form>
         | BuiltInFunc of tag: int * implementation: (Form list -> Form)
         | Skip
+        | ErrorForm of err: string
         // Skip is a special type which is used to mark the parts of code which
-        // is not evaluated. It can not be used from the LISP userspace
+        // is are evaluated. It can not be used from the LISP userspace
 
         interface IComparable with
             member this.CompareTo other =
@@ -44,6 +45,7 @@ module Types =
                 | Atom a, Atom b -> compare a b
                 | HashMap (a, a'), HashMap (b, b') -> compare (a, a') (b, b')
                 | BuiltInFunc (a, _), BuiltInFunc (b, _) -> compare a b
+                | ErrorForm a, ErrorForm b -> compare a b
                 | _, _ -> -1
 
         override this.Equals other =
@@ -62,6 +64,7 @@ module Types =
                 | Atom a, Atom b -> a = b
                 | HashMap (a, a'), HashMap (b, b') -> a = b && a' = b'
                 | BuiltInFunc (a, _), BuiltInFunc (b, _) -> a = b
+                | ErrorForm a, ErrorForm b -> a = b
                 | _, _ -> false
             | _ -> false
 
@@ -79,3 +82,26 @@ module Types =
             | Atom a -> hash a
             | HashMap (a, a') -> hash (a, a')
             | BuiltInFunc (a, _) -> hash $"bif<%d{a}>"
+            | ErrorForm a -> hash $"error<%s{a}>"
+
+    let private concatSpace = String.concat " "
+
+    let rec typeToString =
+        function
+        | Skip -> "skip"
+        | Nil -> "nil"
+        | Number _ -> "number"
+        | String _ -> "string"
+        | Bool _ -> "bool"
+        | List l -> $"(%s{l |> List.map typeToString |> concatSpace})"
+        | Vector v ->
+            $"[%s{v
+                  |> Array.map typeToString
+                  |> Array.toList
+                  |> concatSpace}]"
+        | Symbol s -> s
+        | Keyword k -> $":%s{k}"
+        | Atom a -> $"(atom $s{typeToString a.Value})"
+        | HashMap _ -> "hashmap"
+        | BuiltInFunc _ -> "#bif<>"
+        | ErrorForm _ -> "error"

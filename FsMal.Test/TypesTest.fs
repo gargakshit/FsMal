@@ -34,8 +34,8 @@ type TypesTest(output: ITestOutputHelper) =
     [<Fact>]
     let ``equality for List`` () =
         Assert.Equal(
-            List [ Nil;String "abc";Number 1.0 ],
-            List [ Nil;String "abc";Number 1.0 ]
+            List [ Nil; String "abc"; Number 1.0 ],
+            List [ Nil; String "abc"; Number 1.0 ]
         )
 
         Assert.NotEqual(List [ Nil ], List [ Number 1.0 ])
@@ -44,8 +44,12 @@ type TypesTest(output: ITestOutputHelper) =
     [<Fact>]
     let ``equality for Vector`` () =
         Assert.Equal(
-            Vector [| Nil;String "abc";Number 1.0 |],
-            Vector [| Nil;String "abc";Number 1.0 |]
+            Vector [| Nil
+                      String "abc"
+                      Number 1.0 |],
+            Vector [| Nil
+                      String "abc"
+                      Number 1.0 |]
         )
 
         Assert.NotEqual(Vector [| Nil |], Vector [| Number 1.0 |])

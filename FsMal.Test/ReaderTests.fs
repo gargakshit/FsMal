@@ -77,7 +77,7 @@ type ReaderTests(output: ITestOutputHelper) =
 
         match actual'' with
         | Ok _ -> Assert.True(false, $"Expected error, got {actual''}")
-        | Error _ -> Assert.True(true)
+        | ErrorForm _ -> Assert.True(true)
 
     [<Fact>]
     let ``Reader parses lists`` () =
@@ -97,7 +97,7 @@ type ReaderTests(output: ITestOutputHelper) =
         Assert.Equal(expected, actual)
 
         let input' = "( ,1\"abc\")"
-        let expected' = Ok(List [ Number 1.0;String "abc" ])
+        let expected' = Ok(List [ Number 1.0; String "abc" ])
         let actual' = readString input'
 
         Assert.Equal(expected', actual')
@@ -107,7 +107,7 @@ type ReaderTests(output: ITestOutputHelper) =
 
         match actual'' with
         | Ok _ -> Assert.True(false, $"Expected error, got {actual''}")
-        | Error _ -> Assert.True(true)
+        | ErrorForm _ -> Assert.True(true)
 
     [<Fact>]
     let ``Reader parses vectors`` () =
@@ -127,7 +127,10 @@ type ReaderTests(output: ITestOutputHelper) =
         Assert.Equal(expected, actual)
 
         let input' = "[ ,1\"abc\"]"
-        let expected' = Ok(Vector [| Number 1.0;String "abc" |])
+
+        let expected' =
+            Ok(Vector [| Number 1.0; String "abc" |])
+
         let actual' = readString input'
 
         Assert.Equal(expected', actual')
@@ -137,7 +140,7 @@ type ReaderTests(output: ITestOutputHelper) =
 
         match actual'' with
         | Ok _ -> Assert.True(false, $"Expected error, got {actual''}")
-        | Error _ -> Assert.True(true)
+        | ErrorForm _ -> Assert.True(true)
 
     [<Fact>]
     let ``Reader parses keyword`` () =
@@ -152,7 +155,7 @@ type ReaderTests(output: ITestOutputHelper) =
         let input = "'quoted"
 
         let expected =
-            Ok(List [ Symbol "quote";Symbol "quoted" ])
+            Ok(List [ Symbol "quote"; Symbol "quoted" ])
 
         let actual = readString input
 
@@ -211,7 +214,10 @@ type ReaderTests(output: ITestOutputHelper) =
         let input = "@derefed"
 
         let expected =
-            Ok(List [ Symbol "deref";Symbol "derefed" ])
+            Ok(
+                List [ Symbol "deref"
+                       Symbol "derefed" ]
+            )
 
         let actual = readString input
 
@@ -250,11 +256,11 @@ type ReaderTests(output: ITestOutputHelper) =
 
         match actual' with
         | Ok _ -> Assert.True(false, $"Expected error, got {actual'}")
-        | Error _ -> Assert.True(true)
+        | ErrorForm _ -> Assert.True(true)
 
         let input'' = "{ :a 1"
         let actual'' = readString input''
 
         match actual'' with
         | Ok _ -> Assert.True(false, $"Expected error, got {actual''}")
-        | Error _ -> Assert.True(true)
+        | ErrorForm _ -> Assert.True(true)

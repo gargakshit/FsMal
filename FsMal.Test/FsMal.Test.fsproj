@@ -8,16 +8,16 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Compile Include="ReaderTests.fs" />
-		<Compile Include="PrinterTest.fs" />
-		<Compile Include="UtilsTests.fs" />
-		<Compile Include="EnvTest.fs" />
-		<Compile Include="TypesTest.fs" />
+		<Compile Include="ReaderTests.fs"/>
+		<Compile Include="PrinterTest.fs"/>
+		<Compile Include="UtilsTests.fs"/>
+		<Compile Include="EnvTest.fs"/>
+		<Compile Include="TypesTest.fs"/>
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
-		<PackageReference Include="xunit" Version="2.4.1" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0"/>
+		<PackageReference Include="xunit" Version="2.4.1"/>
 		<PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
@@ -26,11 +26,11 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
-		<PackageReference Update="FSharp.Core" Version="6.0.0" />
+		<PackageReference Update="FSharp.Core" Version="6.0.0"/>
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\FsMal\FsMal.fsproj" />
+		<ProjectReference Include="..\FsMal\FsMal.fsproj"/>
 	</ItemGroup>
 
 </Project>

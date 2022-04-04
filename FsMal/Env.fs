@@ -7,15 +7,15 @@ module Env =
     open Utils
 
     type Data = Generic.Dictionary<string, Form>
-    type Env = { parent: Env option;data: Data }
+    type Env = { parent: Env option; data: Data }
 
-    let makeEmpty () = { parent = None;data = Data() }
+    let makeEmpty () = { parent = None; data = Data() }
 
     let set env key value =
         env.data.[key] <- value
         env
 
-    let fork env = { parent = Some env;data = Data() }
+    let fork env = { parent = Some env; data = Data() }
 
     let rec find env key =
         match env.data.GetOption key with

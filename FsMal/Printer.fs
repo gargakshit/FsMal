@@ -12,11 +12,12 @@ module Printer =
         | Bool true -> "true"
         | Keyword k -> $":%s{k}"
         | Symbol s -> s
-        | Atom v -> $"(atom %s{printToString pretty !v})"
+        | Atom v -> $"(atom %s{printToString pretty v.Value})"
         | Skip -> ""
         | List l -> $"(%s{printList pretty l})"
         | Vector v -> $"[%s{printArray pretty v}]"
         | BuiltInFunc _ -> "#<function>"
+        | ErrorForm a -> $"(error %s{a})"
         | HashMap (keywordMap, stringMap) ->
             printHashMap pretty keywordMap stringMap
 

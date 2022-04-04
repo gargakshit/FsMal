@@ -25,7 +25,7 @@ type UtilsTests(output: ITestOutputHelper) =
             },
             None
         )
-        
+
         Assert.Equal(
             option {
                 let! _ = None
@@ -33,7 +33,7 @@ type UtilsTests(output: ITestOutputHelper) =
             },
             None
         )
-        
+
         Assert.Equal(
             option {
                 let! _ = Some true
